@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="it">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html">
+    <title> GibsonStore </title>
+    <link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+	<link rel="stylesheet" type="text/css"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="index.css"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="index.js"></script>
+        
+</head>
+    <div id="header">
+        <a href="#"><img src="img/gibsonLogo.jpg" alt="Gibson" id="imgLogo"></a>
+        <div id="mainNavBar">
+          <button id="btnLoginMain" class="btn">Login</button>
+          <div class="dropdown">
+            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+              ACOUSTIC GUITARS
+            </button>
+            <div class="dropdown-menu">
+              <h5 class="dropdown-header">Gibson Acoustic</h5>
+              <a class="dropdown-item" id="Original Acoustic">Original Collection</a>
+              <a class="dropdown-item" id="Modern Acoustic">Modern Collection</a>              
+              <h5 class="dropdown-header">Acoustic Custom Shop</h5>
+              <a class="dropdown-item" id="Acoustic Custom Shop">Acoustic Custom Shop Collection</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            
+            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+              ELECTRIC GUITARS
+            </button>
+            <div class="dropdown-menu">
+              <h5 class="dropdown-header">Shop By Collection</h5>
+              <a class="dropdown-item" id="Original">The Original Collection</a>
+              <a class="dropdown-item" id="Modern">The Modern Collection</a>
+              <a class="dropdown-item" id="Artist">The Artist Collection</a>
+              <a class="dropdown-item" id="Slash">The Slash Collection</a>
+              <a class="dropdown-item" id="Custom shop">Gibson Custom Shop</a>
+              <h5 class="dropdown-header">Shop By Body Style</h5>
+              <a class="dropdown-item" id="">Les Paul Models</a>
+              <a class="dropdown-item" id="">SG Models</a>
+              <a class="dropdown-item" id="">ES-Style Models</a>
+              <a class="dropdown-item" id="">Basses</a>
+              <a class="dropdown-item" id="">Designer Models</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div id="loggedBar"></div>
+
+    <div class="row" id="carousel">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+          <!-- Indicators -->
+          <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+          </ul>
+        
+          <!-- The slideshow -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img id="imgCarousel" src="img/gibson1.jpg" alt="gb1">
+            </div>
+            <div class="carousel-item">
+              <img id="imgCarousel" src="img/gibson5.jpg" alt="gb2">
+            </div>
+            <div class="carousel-item">
+              <img id="imgCarousel" src="img/gibson7.jpg" alt="gb3">
+            </div>
+          </div>
+        
+          <!-- Left and right controls -->
+          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        
+        </div>
+      </div>
+      <div class="col-2"></div>
+    </div>
+    
+    <div id="mainPage" class="container-fluid">
+      <div class="row">
+        <div class="col-12 text-center"><h1>Discover Your Style</h1></div>
+        <div class="col-12 text-center"><h4>Click A Body Style to Browse</h4></div>
+      </div>
+      <div class="row text-center" id="selectContain">
+        <div class="col-2"><a><img class="img-fluid" src="https://static.gibson.com/gibson-web/shared/browse-les-paul-thumb-50s.png"><p>LES PAUL</p></a></div>
+        <div class="col-2"><a><img class="img-fluid" src="https://static.gibson.com/gibson-web/shared/browse-sg-thumb-61.png"><p>SG</p></a></div>
+        <div class="col-2"><a><img class="img-fluid" src="https://static.gibson.com/gibson-web/shared/browse-es-thumb.png"><p>ES</p></a></div>
+        <div class="col-2"><a><img class="img-fluid" src="https://static.gibson.com/gibson-web/shared/browse-acoustic-thumb.png"><p>ACOUSTIC</p></a></div>
+        <div class="col-2"><a><img class="img-fluid" src="https://static.gibson.com/gibson-web/shared/browse-designer-explorer-thumb.png"><p>DESIGNER</p></a></div>
+        <div class="col-2"><a><img class="img-fluid" src="https://static.gibson.com/gibson-web/shared/browse-basses-thumb.png"><p>BASSES</p></a></div>
+      </div>
+    </div>
+
+    <div id="border"></div>
+    <div id="guitarsWrapper" class="row"></div>
+    
+</body>
+</html>
