@@ -33,6 +33,7 @@
 		// 4. creazione session e restituzione risultato
 		else{
 			session_start();
+			$_SESSION["matricola"] = $data[0]["matricola"];
 			$_SESSION["scadenza"] = time() + SCADENZA;
 			setcookie(session_name(), session_id(), time()+SCADENZA, "/");
 			//echo(json_encode({"ris":"ok"}))

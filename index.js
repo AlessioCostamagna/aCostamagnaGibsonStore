@@ -1,7 +1,26 @@
 $(document).ready(function(){
     let wrapper = $("#guitarsWrapper");
     let btnLoginMain =$("#btnLoginMain");
-    $("#loggedBar").hide();
+    $("#cardBtnBuy").prop("disabled",true);
+    $("#cart").hide();
+    $(btnLoginMain).on("click",function(){
+         window.location.href ="./login.html";
+    })
+    let _richiestaLogin = inviaRichiesta("GET","server/loged.php");
+    _richiestaLogin.done(function(data) {
+        $("#cart").show();
+        $(btnLoginMain).off().text("Logout").on("click",function(){
+            let _richiestaLogin = inviaRichiesta("GET","server/logout.php");
+            _richiestaLogin.fail(function(jqXHR, test_status, str_error){
+                window.location.href ="./index.html";
+            })
+        })
+        $("#cardBtnBuy").prop("disabled",false);
+    });
+    _richiestaLogin.fail(function(jqXHR, test_status, str_error){
+
+    })
+
     $("#selectContain div").on("click",function(){
         wrapper.children().remove();
         let correntName = $(this).find("p").text();
@@ -34,8 +53,17 @@ $(document).ready(function(){
                     appendTo:_card
                 }).attr("id","cardImg")
                 let _btnBuy = $("<button>",{
-                    text : "BUY",
-                    appendTo: _card
+                    text : "Add Cart",
+                    appendTo: _card,
+                    click : function(){
+                        let addCart = inviaRichiesta("GET","server/addCart.php",{"id" : data[i]["id"]});
+                        addCart.done(function(){
+                            alert("Articolo aggiunto al carrello");
+                        })
+                        addCart.fail(function(){
+                            alert("Devi registrarti per acquistare il prodotto");
+                        })
+                    }
                 }).attr("id","cardBtnBuy")
                 let _divAnchor = $("<div>",{
                     text : data[i]["options"]+" Collection",
@@ -78,7 +106,7 @@ $(document).ready(function(){
                     appendTo:_card
                 }).attr("id","cardImg")
                 let _btnBuy = $("<button>",{
-                    text : "BUY",
+                    text : "Add Cart",
                     appendTo: _card
                 }).attr("id","cardBtnBuy")
                 let _divAnchor = $("<div>",{
@@ -90,10 +118,55 @@ $(document).ready(function(){
         request.fail(error);
     })
     
-    $(btnLoginMain).on("click",function(){
-        if(!btnLoginMain.disabled){
-            window.location.href ="./login.html";
-        }
+    $("#cart").on("click",function(){
+        let tot = 0;
+        wrapper.children().remove();
+        let request = inviaRichiesta("GET","server/getCart.php");
+        request.done(function(data){
+            console.log(data);
+            for(let i=0;i<data.length;i++){
+                tot+=parseInt(data[i]["price"]);
+                let _card = $("<div>",{
+                    addClass:"col-sm-4",
+                    appendTo:wrapper,
+                }).attr("id","card" )
+                let _divName = $("<div>",{
+                    text : data[i]["version"],
+                    appendTo: _card
+                }).attr("id","cardName")
+
+                let _divPrice = $("<div>",{
+                    text : "$"+data[i]["price"],
+                    appendTo: _card
+                }).attr("id","cardPrice")
+
+                let _img = $("<img>",{
+                    src : data[i]["img"],
+                    appendTo:_card
+                }).attr("id","cardImg")
+                let _divAnchor = $("<div>",{
+                    text : data[i]["options"]+" Collection",
+                    appendTo: _card
+                }).attr("id","cardAnchor");
+                
+            }
+            let lblPrice = $("<label>",{
+                text : "Importo: "+tot
+            }).appendTo(wrapper);
+            let _btnBuy = $("<button>",{
+                text : "Conferm",
+                appendTo: wrapper,
+                click : function(){
+                    let addCart = inviaRichiesta("GET","server/buyCart.php");
+                    addCart.done(function(){
+                        alert("Acquisto effettuato");
+                        wrapper.children().remove();
+                    })
+                }
+            }).attr("id","cardBtnBuy")
+
+        })
+        request.fail(error);
     })
     function error(jqXHR, test_status, str_error) {
         alert(jqXHR.responseText);

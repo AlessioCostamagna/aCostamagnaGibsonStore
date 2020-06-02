@@ -6,12 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Registrazione</title>
 	<link rel="icon" href="img/icoVallauri.png" type="image/png" />
-		
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"> </script>
+	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>		
-	<script src="2_registrazione.js"></script>
+	<script src="libreria.js"></script>
+
 	
 	<style>
 		.input-group-addon{
@@ -39,47 +40,47 @@
 				</br>
 			
 				Cognome:
-				<div class="input-group" id="txtCognome">
+				<div class="input-group" >
 					<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-					<input class="form-control" name="txtCognome" type="text" placeholder="Cognome">
+					<input id="txtCognome" class="form-control" name="txtCognome" type="text" placeholder="Cognome">
 				</div>
 				
 				Nome:
-				<div class="input-group" id="txtNome">
+				<div class="input-group" >
 					<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-					<input class="form-control" name="txtNome" type="text" placeholder="Nome">
+					<input id="txtNome" class="form-control" name="txtNome" type="text" placeholder="Nome">
 				</div>
 				
 				
 				Telefono:
-				<div class="input-group" id="txtTelefono">
+				<div class="input-group" >
 					<span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
-					<input class="form-control" name="txtTelefono" type="text" placeholder="Telefono">
+					<input id="txtTelefono" class="form-control" name="txtTelefono" type="text" placeholder="Telefono">
 				</div>
 				
 				Mail:
-				<div class="input-group" id="txtMail">
+				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
-					<input class="form-control" name="txtMail" type="text" placeholder="Mail">
+					<input id="txtMail" class="form-control" name="txtMail" type="text" placeholder="Mail">
 				</div>
 				
 				
 				Username:
-				<div class="input-group"  id="txtUsername">
+				<div class="input-group"  >
 					<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-					<input class="form-control" name="txtUsername" type="text" placeholder="Username">
+					<input id="txtUsername" class="form-control" name="txtUsername" type="text" placeholder="Username">
 				</div>
 				
 				Password:
-				<div class="input-group" id="txtPassword">
+				<div class="input-group" >
 					<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-					<input class="form-control" name="txtPassword" type="password" placeholder="Password">
+					<input id="txtPassword" class="form-control" name="txtPassword" type="password" placeholder="Password">
 				</div>
 				
 				Conferma password:
-				<div class="input-group" id="txtConfermaPassword">
+				<div class="input-group" >
 					<span class="input-group-addon"><i class="fa fa-key fa-fw"></i> </span>
-					<input class="form-control" type="password" placeholder="Password">
+					<input id="txtConfermaPassword" class="form-control" type="password" placeholder="Password">
 				</div>
 				
 				</br>						
@@ -94,5 +95,35 @@
 			</div>
 		</form>
 	</div>
+	<script>
+		$("#btnInvia").on("click",function(){
+			if($("#txtCognome").val()=="" && $("#txtNome").val()=="" && $("#txtTelefono").val()=="" && $("#txtMail").val()!="" && $("#txtUsername").val()=="" && $("#txtPassword").val()=="" && $("#txtConfermaPassword").val()==""){
+			alert("Completa tutti i campi");
+		}
+		else if($("txtPassword").val()!= $("txtConfermaPassword").val()){
+			alert("Le password sono diverse");
+		}
+		else{
+			let requestSignUp = inviaRichiesta("POST","server/registrazione.php",{
+				"nome": $("#txtNome").val(),
+				"cognome" : $("#txtCognome").val(),
+				"telefono": $("#txtTelefono").val(),
+				"mail": $("#txtMail").val(),
+				"username": $("#txtUsername").val(),
+				"password" : CryptoJS.MD5($("#txtPassword").val()).toString()
+			});
+			requestSignUp.done(function(data){
+				window.location.href = "./index.html";
+			})
+			requestSignUp.fail(function(jqXHR, test_status, str_error){
+				if(jqXHR.responseText == "Username già esistente!")
+					alert("Username gia occupato");
+				else{
+					alert(jqXHR.responseText);
+				}
+			})
+		}
+		})
+	</script>
 </body>
 </html>

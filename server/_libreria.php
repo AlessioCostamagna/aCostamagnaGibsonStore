@@ -1,6 +1,6 @@
 <?php
     
-	define ("SCADENZA", 30);   // tempo espresso in sec
+	define ("SCADENZA", 3600);   // tempo espresso in sec
 	
 	function _connection($dbName){
 		define('DBHOST', 'localhost');
@@ -61,4 +61,12 @@
 			setcookie(session_name(), session_id(), $_SESSION["scadenza"], "/");
 		}		
 	}
+
+			function _terminateSession()
+		{
+			session_unset();
+			session_destroy();
+			http_response_code(403);
+			die("Sessione scaduta");
+		}
 ?>

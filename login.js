@@ -1,9 +1,9 @@
 "use strict"
 
 $(document).ready(function() {	
-	let _username = $("#usr")
-	let _password = $("#pwd")
-	let _lblErrore = $("#lblError")
+	let _username = $("#usr");
+	let _password = $("#pwd");
+	let _lblErrore = $("#lblError");
 	
 	// all'avvio apriamo subito il jumbotron
 	$(".jumbotron").trigger("click");
