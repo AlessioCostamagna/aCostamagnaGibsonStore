@@ -150,12 +150,16 @@ $(document).ready(function(){
                 }).attr("id","cardAnchor");
                 
             }
+            let _divConferm = $("<div>");
+            _divConferm.attr("id","divConferm");
+            _divConferm.appendTo(wrapper);
             let lblPrice = $("<label>",{
-                text : "Importo: "+tot
-            }).appendTo(wrapper);
+                text : "Importo: $"+tot,
+                appendTo: _divConferm
+            }).attr("id","lblTot");
             let _btnBuy = $("<button>",{
                 text : "Conferm",
-                appendTo: wrapper,
+                appendTo: _divConferm,
                 click : function(){
                     let addCart = inviaRichiesta("GET","server/buyCart.php");
                     addCart.done(function(){
@@ -163,7 +167,7 @@ $(document).ready(function(){
                         wrapper.children().remove();
                     })
                 }
-            }).attr("id","cardBtnBuy")
+            }).attr("id","btnConferm");
 
         })
         request.fail(error);
